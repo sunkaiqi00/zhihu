@@ -1,27 +1,27 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <div class="container">
+    <global-header :user="userData"></global-header>
+    <router-view></router-view>
+    <global-footer />
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
-
-export default defineComponent({
+import { UserProps } from "@/typeings/interface";
+import GlobalHeader from "@/components/header/GlobalHeader.vue";
+import GlobalFooter from "@/components/footer/GlobalFooter.vue";
+const userData: UserProps = {
+  id: 1,
+  name: "开怀",
+  isLogin: true
+};
+export default {
   name: "App",
-  components: {
-    HelloWorld
+  components: { GlobalHeader, GlobalFooter },
+  setup() {
+    return {
+      userData
+    };
   }
-});
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
