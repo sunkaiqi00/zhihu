@@ -1,9 +1,12 @@
 <template>
   <div class="column-detail-page w-75 mx-auto">
-    <div class="column-info row mb-4 border-bottom pb-4 align-items-center">
+    <div
+      class="column-info row mb-4 border-bottom pb-4 align-items-center"
+      v-if="column"
+    >
       <div class="col-3 text-center">
         <img
-          :src="column.avatar"
+          :src="column.avatar && column.avatar.url"
           :alt="column.title"
           class="rounded-circle border w-100"
         />
@@ -19,18 +22,24 @@
 
 <script lang="ts">
 import { useStore } from "vuex";
-import { StoreData } from "@/typeings/interface";
 import { useRoute } from "vue-router";
+import { StoreData } from "@/typeings/interface";
 import PostList from "@/components/column/PostList.vue";
+import { computed, onMounted } from "vue";
 export default {
   components: { PostList },
   name: "ColumnDetail",
   setup() {
     const route = useRoute();
     const store = useStore<StoreData>();
-    const currentId = +route.params.id;
-    const column = store.getters.getColumns(currentId);
-    const list = store.getters.getPosts(currentId);
+    const currentId = route.params.id;
+
+    const column = computed(() => store.getters.getColumns(currentId));
+    const list = computed(() => store.getters.getPosts(currentId));
+    onMounted(() => {
+      store.dispatch("setColumn", currentId);
+      store.dispatch("setPosts", currentId);
+    });
     return {
       column,
       list

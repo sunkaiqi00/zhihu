@@ -1,8 +1,14 @@
 export interface ColumnmProps {
-  id: number;
+  _id: string;
   title: string;
-  avatar?: string;
+  avatar?: ImageProps;
   description: string;
+}
+
+export interface ImageProps {
+  _id?: string;
+  url?: string;
+  createAt?: string;
 }
 
 export interface UserProps {
@@ -18,15 +24,17 @@ export interface RuleProp {
 }
 
 export interface PostProps {
-  id: number;
+  _id: string;
   title: string;
-  content: string;
-  image?: string;
+  excerpt?: string;
+  content?: string;
+  image?: ImageProps;
   createdAt: string;
-  columnId: number;
+  column: string;
 }
 
 export interface StoreData {
+  loading: boolean;
   columns: ColumnmProps[];
   posts: PostProps[];
   user: UserProps;

@@ -2,14 +2,14 @@ import { createStore } from "vuex";
 import getters from "./getters";
 import mutations from "./mutations";
 import actions from "./actions";
-import { testData, testPosts, user } from "../testData";
 import { StoreData } from "../typeings/interface";
 
 const store = createStore<StoreData>({
   state: {
-    columns: testData,
-    posts: testPosts,
-    user
+    loading: false,
+    columns: [],
+    posts: [],
+    user: { isLogin: true, name: "开怀", columnId: 1 }
   },
   getters,
   mutations,

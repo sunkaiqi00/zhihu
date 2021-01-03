@@ -2,33 +2,46 @@ import { ColumnmProps, PostProps, UserProps } from "./typeings/interface";
 
 const testData: ColumnmProps[] = [
   {
-    id: 1,
+    _id: "1",
     title: "周杰伦的专栏",
-    avatar:
-      "https://static.vue-js.com/6280b990-ff19-11ea-85f6-6fac77c0c9b3.png",
+    avatar: {
+      url: "https://static.vue-js.com/6280b990-ff19-11ea-85f6-6fac77c0c9b3.png",
+      _id: "disuyrgdv",
+      createAt: "2020-01-03 11:18"
+    },
     description:
       "周杰伦（Jay Chou），1979年1月18日出生于台湾省新北市，华语流行男歌手、演员、词曲创作人、MV及电影导演、编剧及制作人。"
   },
   {
-    id: 2,
-    title: "孙凯琪的专栏",
-    avatar: "",
+    _id: "1",
+    title: "周杰伦的专栏",
+    avatar: {
+      url: "https://static.vue-js.com/6280b990-ff19-11ea-85f6-6fac77c0c9b3.png",
+      _id: "disuyrgdv",
+      createAt: "2020-01-03 11:18"
+    },
     description:
       "周杰伦（Jay Chou），1979年1月18日出生于台湾省新北市，华语流行男歌手、演员、词曲创作人、MV及电影导演、编剧及制作人。"
   },
   {
-    id: 3,
-    title: "斯内克的专栏",
-    avatar:
-      "https://static.vue-js.com/6280b990-ff19-11ea-85f6-6fac77c0c9b3.png",
+    _id: "1",
+    title: "周杰伦的专栏",
+    avatar: {
+      url: "https://static.vue-js.com/6280b990-ff19-11ea-85f6-6fac77c0c9b3.png",
+      _id: "disuyrgdv",
+      createAt: "2020-01-03 11:18"
+    },
     description:
       "周杰伦（Jay Chou），1979年1月18日出生于台湾省新北市，华语流行男歌手、演员、词曲创作人、MV及电影导演、编剧及制作人。"
   },
   {
-    id: 4,
-    title: "开怀的专栏",
-    avatar:
-      "https://static.vue-js.com/6280b990-ff19-11ea-85f6-6fac77c0c9b3.png",
+    _id: "1",
+    title: "周杰伦的专栏",
+    avatar: {
+      url: "https://static.vue-js.com/6280b990-ff19-11ea-85f6-6fac77c0c9b3.png",
+      _id: "disuyrgdv",
+      createAt: "2020-01-03 11:18"
+    },
     description:
       "周杰伦（Jay Chou），1979年1月18日出生于台湾省新北市，华语流行男歌手、演员、词曲创作人、MV及电影导演、编剧及制作人。"
   }

@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: "GlobalFooter"
+  name: "Footer"
 };
 </script>

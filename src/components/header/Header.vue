@@ -16,19 +16,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
+import { PropType } from "vue";
 import { UserProps } from "@/typeings/interface";
 import DropdownMenu from "../dropdown-menu/DropdownMenu.vue";
-export default defineComponent({
-  components: { DropdownMenu },
+export default {
   name: "Header",
+  components: { DropdownMenu },
   props: {
     user: {
       type: Object as PropType<UserProps>,
       required: true
     }
   }
-});
+};
 </script>
 
 <style scoped>

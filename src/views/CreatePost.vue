@@ -55,25 +55,25 @@ export default {
       }
     ];
     const submitForm = (res: boolean) => {
-      if (res) {
-        const { columnId } = store.state.user;
-        const post: PostProps = {
-          id: new Date().getTime(),
-          title: titleVal.value,
-          content: contentVal.value,
-          columnId,
-          createdAt: new Date().toLocaleString()
-        };
-        store.dispatch("createPost", post);
-        titleVal.value = "";
-        contentVal.value = "";
-        router.push({
-          name: "column",
-          params: {
-            id: columnId
-          }
-        });
-      }
+      // if (res) {
+      //   const { columnId } = store.state.user;
+      //   const post: PostProps = {
+      //     _id: new Date().getTime().toString(),
+      //     title: titleVal.value,
+      //     content: contentVal.value,
+      //     columnId,
+      //     createdAt: new Date().toLocaleString()
+      //   };
+      //   store.dispatch("createPost", post);
+      //   titleVal.value = "";
+      //   contentVal.value = "";
+      //   router.push({
+      //     name: "column",
+      //     params: {
+      //       id: columnId
+      //     }
+      //   });
+      // }
     };
     return {
       titleVal,

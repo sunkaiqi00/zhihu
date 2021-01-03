@@ -14,7 +14,7 @@
       </div>
     </section>
     <h4 class="font-weight-bold text-center">发现精彩</h4>
-    <column-list :list="testData"></column-list>
+    <column-list :list="columns"></column-list>
     <div class="loading-more text-center">
       <button class="btn btn-primary mt-2 mb-5 mx-auto btn-block w-25">
         加载更多
@@ -24,9 +24,16 @@
 </template>
 
 <script lang="ts">
+import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { StoreData } from "@/typeings/interface";
 import ColumnList from "../components/column/ColumnList.vue";
+
+interface A {
+  code: number;
+  msg: string;
+  data: {};
+}
 export default {
   name: "Home",
   components: {
@@ -34,9 +41,14 @@ export default {
   },
   setup() {
     const store = useStore<StoreData>();
-    const testData = store.state.columns;
+
+    const columns = computed(() => store.state.columns);
+
+    onMounted(() => {
+      store.dispatch("setColumns");
+    });
     return {
-      testData
+      columns
     };
   }
 };
