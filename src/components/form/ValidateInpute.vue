@@ -1,7 +1,16 @@
 <template>
   <div class="validate-input-container pb-3">
     <input
-      type="email"
+      v-if="tag === 'input'"
+      class="form-control"
+      :class="{ 'is-invalid': inputRef.error }"
+      :value="modleValue"
+      @input="inputValue"
+      @blur="validateInput"
+      v-bind="$attrs"
+    />
+    <textarea
+      v-else
       class="form-control"
       :class="{ 'is-invalid': inputRef.error }"
       :value="modleValue"
@@ -21,14 +30,19 @@ import { RuleProp } from "@/typeings/interface";
 import { emailRegExp } from "@/utils/regExp";
 import emitter from "@/mitt";
 type RulesProp = RuleProp[];
+type tagType = "input" | "textarea";
 export default {
   name: "ValidateInpute",
   props: {
     rules: Array as PropType<RulesProp>,
-    modleValue: String
+    modleValue: String,
+    tag: {
+      type: String as PropType<tagType>,
+      default: "input"
+    }
   },
   inheritAttrs: false,
-  emits: ["empty-input"],
+  emits: ["empty-input", "update:modleValue"],
   setup(props, ctx) {
     const inputRef = reactive({
       val: props.modleValue || "",

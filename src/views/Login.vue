@@ -21,23 +21,25 @@
       ></validate-inpute>
     </div>
     <template v-slot:submit>
-      <button type="submit" class="btn btn-danger">Submit</button>
+      <button type="submit" class="btn btn-primary">登录</button>
     </template>
   </validate-form>
 </template>
 
 <script lang="ts">
 import { ref } from "vue";
-
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 import { RuleProp } from "@/typeings/interface";
 import ValidateInpute from "@/components/form/ValidateInpute.vue";
 import ValidateForm from "@/components/form/ValidateForm.vue";
-type RulesProp = RuleProp[];
 export default {
   name: "Login",
   components: { ValidateInpute, ValidateForm },
   setup() {
-    const emailRules: RulesProp = [
+    const router = useRouter();
+    const store = useStore();
+    const emailRules: RuleProp[] = [
       {
         type: "required",
         message: "邮箱地址不能为空"
@@ -47,7 +49,7 @@ export default {
         message: "请输入正确的电子邮箱格式"
       }
     ];
-    const passwordRules: RulesProp = [
+    const passwordRules: RuleProp[] = [
       {
         type: "required",
         message: "密码不能为空"
@@ -55,13 +57,18 @@ export default {
     ];
     const emailVal = ref("");
     const passwordVal = ref("");
-    const validateInputRef = ref<any>("");
+    const validateInputRef = ref<unknown>("");
     const onEmptyInput = () => {
       emailVal.value = "";
       passwordVal.value = "";
     };
-    const onSubmitForm = res => {
-      console.log(res);
+    const onSubmitForm = (res: boolean) => {
+      if (res) {
+        router.push("/");
+        store.dispatch("login");
+        emailVal.value = "";
+        passwordVal.value = "";
+      }
     };
     return {
       emailRules,

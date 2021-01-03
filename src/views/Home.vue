@@ -1,57 +1,45 @@
 <template>
   <div class="home">
+    <section class="py-5 text-center container">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <img src="../assets/image/callout.svg" alt="callout" class="w-50" />
+          <h2 class="font-weight-light">随心写作，自由表达</h2>
+          <p>
+            <router-link to="/createpost" class="btn btn-primary my-2"
+              >开始写文章</router-link
+            >
+          </p>
+        </div>
+      </div>
+    </section>
+    <h4 class="font-weight-bold text-center">发现精彩</h4>
     <column-list :list="testData"></column-list>
+    <div class="loading-more text-center">
+      <button class="btn btn-primary mt-2 mb-5 mx-auto btn-block w-25">
+        加载更多
+      </button>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { ColumnmProps } from "../typeings/interface";
-import ColumnList from "../components/ColumnList.vue";
-const testData: ColumnmProps[] = [
-  {
-    id: 1,
-    title: "周杰伦的专栏",
-    avatar: "",
-    description:
-      "周杰伦（Jay Chou），1979年1月18日出生于台湾省新北市，华语流行男歌手、演员、词曲创作人、MV及电影导演、编剧及制作人。"
-  },
-  {
-    id: 2,
-    title: "孙凯琪的专栏",
-    avatar:
-      "https://static.vue-js.com/6280b990-ff19-11ea-85f6-6fac77c0c9b3.png",
-    description:
-      "周杰伦（Jay Chou），1979年1月18日出生于台湾省新北市，华语流行男歌手、演员、词曲创作人、MV及电影导演、编剧及制作人。"
-  },
-  {
-    id: 3,
-    title: "孙凯琪的专栏",
-    avatar:
-      "https://static.vue-js.com/6280b990-ff19-11ea-85f6-6fac77c0c9b3.png",
-    description:
-      "周杰伦（Jay Chou），1979年1月18日出生于台湾省新北市，华语流行男歌手、演员、词曲创作人、MV及电影导演、编剧及制作人。"
-  },
-  {
-    id: 4,
-    title: "孙凯琪的专栏",
-    avatar:
-      "https://static.vue-js.com/6280b990-ff19-11ea-85f6-6fac77c0c9b3.png",
-    description:
-      "周杰伦（Jay Chou），1979年1月18日出生于台湾省新北市，华语流行男歌手、演员、词曲创作人、MV及电影导演、编剧及制作人。"
-  }
-];
-export default defineComponent({
+import { useStore } from "vuex";
+import { StoreData } from "@/typeings/interface";
+import ColumnList from "../components/column/ColumnList.vue";
+export default {
   name: "Home",
   components: {
     ColumnList
   },
   setup() {
+    const store = useStore<StoreData>();
+    const testData = store.state.columns;
     return {
       testData
     };
   }
-});
+};
 </script>
 
 <style scoped></style>

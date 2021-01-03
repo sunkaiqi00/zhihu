@@ -7,18 +7,18 @@
 </template>
 
 <script lang="ts">
-import { UserProps } from "@/typeings/interface";
+import { computed } from "vue";
+import { useStore } from "vuex";
+import { StoreData } from "./typeings/interface";
 import GlobalHeader from "@/components/header/GlobalHeader.vue";
 import GlobalFooter from "@/components/footer/GlobalFooter.vue";
-const userData: UserProps = {
-  id: 1,
-  name: "开怀",
-  isLogin: true
-};
+
 export default {
   name: "App",
   components: { GlobalHeader, GlobalFooter },
   setup() {
+    const store = useStore<StoreData>();
+    const userData = computed(() => store.state.user);
     return {
       userData
     };

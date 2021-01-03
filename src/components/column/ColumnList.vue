@@ -10,7 +10,9 @@
           />
           <h5 class="card-title">{{ item.title }}</h5>
           <p class="card-text">{{ item.description }}</p>
-          <a href="javascript:;" class="btn btn-outline-primary">进入专栏</a>
+          <div class="btn btn-outline-primary" @click="goColumn(item.id)">
+            进入专栏
+          </div>
         </div>
       </div>
     </div>
@@ -18,9 +20,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
+import { PropType } from "vue";
 import { ColumnmProps } from "@/typeings/interface";
-export default defineComponent({
+import { useRouter } from "vue-router";
+export default {
   name: "ColumnList",
   props: {
     list: {
@@ -29,17 +32,25 @@ export default defineComponent({
     }
   },
   setup(props) {
+    const router = useRouter();
     const columnList = props.list.map(item => {
       if (!item.avatar) {
         item.avatar = require("@/assets/image/avatar.png");
       }
       return item;
     });
+    const goColumn = id => {
+      router.push({
+        name: "column",
+        params: { id }
+      });
+    };
     return {
-      columnList
+      columnList,
+      goColumn
     };
   }
-});
+};
 </script>
 
 <style scoped>

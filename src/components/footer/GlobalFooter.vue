@@ -1,5 +1,5 @@
 <template>
-  <footer class="text-center py-4 text-secondary bg-dark mt-6">
+  <footer class="text-center py-4 text-secondary bg-light mt-6">
     <div class="description">Create by Kaihuai</div>
   </footer>
 </template>
@@ -9,9 +9,3 @@ export default {
   name: "GlobalFooter"
 };
 </script>
-
-<style scoped>
-.description {
-  font-size: 1rem;
-}
-</style>
