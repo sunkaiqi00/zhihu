@@ -1,9 +1,9 @@
 <template>
   <form class="validate-form-container">
     <slot></slot>
-    <div class="submit-area" @click.prevent="submitForm">
+    <div class="submit-area text-center" @click.prevent="submitForm">
       <slot name="submit">
-        <button type="submit" class="btn btn-primary">提交</button>
+        <button class="btn btn-primary w-25">提交</button>
       </slot>
     </div>
   </form>
@@ -37,5 +37,3 @@ export default {
   }
 };
 </script>
-
-<style scoped></style>

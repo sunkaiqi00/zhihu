@@ -7,8 +7,6 @@
         v-model:modleValue="emailVal"
         placeholder="请输入邮箱地址"
         type="text"
-        ref="validateInputRef"
-        @emptyInput="onEmptyInput"
       ></validate-inpute>
     </div>
     <div class="form-group mb-3">
@@ -21,7 +19,7 @@
       ></validate-inpute>
     </div>
     <template v-slot:submit>
-      <button type="submit" class="btn btn-primary">登录</button>
+      <button class="btn btn-primary w-25">登录</button>
     </template>
   </validate-form>
 </template>
@@ -30,6 +28,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import createMessage from "../components/createMessage";
 import { RuleProp } from "@/typeings/interface";
 import ValidateInpute from "@/components/form/ValidateInpute.vue";
 import ValidateForm from "@/components/form/ValidateForm.vue";
@@ -57,17 +56,25 @@ export default {
     ];
     const emailVal = ref("");
     const passwordVal = ref("");
-    const validateInputRef = ref<unknown>("");
-    const onEmptyInput = () => {
-      emailVal.value = "";
-      passwordVal.value = "";
-    };
     const onSubmitForm = (res: boolean) => {
       if (res) {
-        router.push("/");
-        store.dispatch("login");
-        emailVal.value = "";
-        passwordVal.value = "";
+        const body = {
+          email: emailVal.value,
+          password: passwordVal.value
+        };
+        store
+          .dispatch("loginAndGetUser", body)
+          .then(() => {
+            createMessage("登陆成功，正在前往首页", "success");
+            setTimeout(() => {
+              router.push("/");
+            }, 1600);
+            emailVal.value = "";
+            passwordVal.value = "";
+          })
+          .catch(err => {
+            console.log(err);
+          });
       }
     };
     return {
@@ -75,16 +82,8 @@ export default {
       emailVal,
       passwordVal,
       passwordRules,
-      onSubmitForm,
-      validateInputRef,
-      onEmptyInput
+      onSubmitForm
     };
   }
 };
 </script>
-
-<style scoped>
-.error {
-  color: red;
-}
-</style>

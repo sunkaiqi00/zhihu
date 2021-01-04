@@ -13,14 +13,16 @@ export interface ImageProps {
 
 export interface UserProps {
   isLogin: boolean;
-  name?: string;
-  id?: number;
-  columnId: number;
+  nickName?: string;
+  _id?: number;
+  column?: string;
+  email?: string;
 }
 
 export interface RuleProp {
-  type: "email" | "required";
+  type: "email" | "required" | "custom";
   message: string;
+  validator?: () => boolean;
 }
 
 export interface PostProps {
@@ -34,8 +36,15 @@ export interface PostProps {
 }
 
 export interface StoreData {
+  token: string;
   loading: boolean;
   columns: ColumnmProps[];
   posts: PostProps[];
   user: UserProps;
+  error: ErrorProps;
+}
+
+export interface ErrorProps {
+  status: boolean;
+  message?: string;
 }

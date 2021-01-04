@@ -8,17 +8,19 @@
         >
       </li>
       <li class="list-inline-item">
-        <a href="javascript:;" class="btn btn-outline-light my-2">注册</a>
+        <router-link to="/signup" class="btn btn-outline-light my-2"
+          >注册</router-link
+        >
       </li>
     </ul>
-    <dropdown-menu v-else :title="`您好 ${user.name}`"></dropdown-menu>
+    <dropdown-menu v-else :title="`您好 ${user.nickName}`"></dropdown-menu>
   </nav>
 </template>
 
 <script lang="ts">
 import { PropType } from "vue";
 import { UserProps } from "@/typeings/interface";
-import DropdownMenu from "../dropdown-menu/DropdownMenu.vue";
+import DropdownMenu from "./dropdown-menu/DropdownMenu.vue";
 export default {
   name: "Header",
   components: { DropdownMenu },

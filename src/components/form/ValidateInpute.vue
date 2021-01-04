@@ -66,6 +66,9 @@ export default {
             case "email":
               passed = emailRegExp.test(inputRef.val);
               break;
+            case "custom":
+              passed = rule.validator ? rule.validator() : true;
+              break;
             default:
               break;
           }

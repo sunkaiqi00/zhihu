@@ -1,5 +1,3 @@
-import store from "@/store";
-
 export default [
   {
     path: "/",
@@ -15,8 +13,13 @@ export default [
     name: "login",
     component: () => import("@/views/Login.vue"),
     meta: {
-      redirectAlreadyLogin: store.state.user.isLogin
+      redirectAlreadyLogin: true
     }
+  },
+  {
+    path: "/signup",
+    name: "signup",
+    component: () => import("@/views/Signup.vue")
   },
   {
     path: "/column/:id",
@@ -28,7 +31,7 @@ export default [
     name: "createpost",
     component: () => import("@/views/CreatePost.vue"),
     meta: {
-      requiredLogin: store.state.user.isLogin
+      requiredLogin: true
     }
   }
 ];

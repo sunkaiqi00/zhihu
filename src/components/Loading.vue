@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { onUnmounted } from "vue";
+import useCreateDom from "@/hooks/useDomCreate";
 export default {
   name: "Loading",
   props: {
@@ -27,13 +27,7 @@ export default {
     backgroundColor: String
   },
   setup() {
-    const node = document.createElement("div");
-    node.id = "loading";
-    const firstNode = document.body.children[0];
-    document.body.insertBefore(node, firstNode);
-    onUnmounted(() => {
-      document.body.removeChild(node);
-    });
+    useCreateDom("loading");
   }
 };
 </script>

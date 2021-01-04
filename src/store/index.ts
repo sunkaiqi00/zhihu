@@ -6,10 +6,14 @@ import { StoreData } from "../typeings/interface";
 
 const store = createStore<StoreData>({
   state: {
+    token: localStorage.getItem("token") || "",
     loading: false,
     columns: [],
     posts: [],
-    user: { isLogin: true, name: "开怀", columnId: 1 }
+    user: { isLogin: false },
+    error: {
+      status: false
+    }
   },
   getters,
   mutations,
