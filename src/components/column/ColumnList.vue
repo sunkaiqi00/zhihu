@@ -21,13 +21,13 @@
 
 <script lang="ts">
 import { computed, PropType } from "vue";
-import { ColumnmProps } from "@/typeings/interface";
+import { ColumnProps } from "@/typeings/interface";
 import { useRouter } from "vue-router";
 export default {
   name: "ColumnList",
   props: {
     list: {
-      type: Array as PropType<ColumnmProps[]>,
+      type: Array as PropType<ColumnProps[]>,
       required: true
     }
   },

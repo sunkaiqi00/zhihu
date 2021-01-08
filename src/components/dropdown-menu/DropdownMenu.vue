@@ -14,7 +14,7 @@
     >
       <dropdown-item @click="onGoCreatePostPage">新建文章</dropdown-item>
       <dropdown-item>编辑资料</dropdown-item>
-      <dropdown-item disabled>进入专栏</dropdown-item>
+      <dropdown-item @click="onGoColumn">进入专栏</dropdown-item>
     </div>
   </div>
 </template>
@@ -22,6 +22,7 @@
 <script lang="ts">
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 import useClickOutside from "@/hooks/useClickOutside";
 import DropdownItem from "./DropdownItem.vue";
 export default {
@@ -35,6 +36,7 @@ export default {
   },
   setup() {
     const router = useRouter();
+    const store = useStore();
     const isShow = ref(false);
     const dropdownRef = ref<null | HTMLElement>(null);
     const toggleDropdownMenu = () => {
@@ -58,12 +60,25 @@ export default {
         isShow.value = false;
       }
     };
+    // 进入专栏
+    const onGoColumn = () => {
+      const { column } = store.state.user;
+      if (column) {
+        router.push({
+          name: "column",
+          params: {
+            id: column
+          }
+        });
+      }
+    };
     return {
       isShow,
       dropdownRef,
       toggleDropdownMenu,
       onGoCreatePostPage,
-      onHide
+      onHide,
+      onGoColumn
     };
   }
 };

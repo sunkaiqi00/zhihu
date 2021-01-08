@@ -26,6 +26,7 @@ import { useRoute } from "vue-router";
 import { StoreData } from "@/typeings/interface";
 import PostList from "@/components/column/PostList.vue";
 import { computed, onMounted } from "vue";
+import { generateUrl } from "@/hooks/helper";
 export default {
   components: { PostList },
   name: "ColumnDetail",
@@ -34,7 +35,13 @@ export default {
     const store = useStore<StoreData>();
     const currentId = route.params.id;
 
-    const column = computed(() => store.getters.getColumns(currentId));
+    const column = computed(() => {
+      const column = store.getters.getColumns(currentId);
+      if (column) {
+        generateUrl(column, 100, 100);
+      }
+      return column;
+    });
     const list = computed(() => store.getters.getPosts(currentId));
     onMounted(() => {
       store.dispatch("setColumn", currentId);

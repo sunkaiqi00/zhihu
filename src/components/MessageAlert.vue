@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { PropType, ref } from "vue";
-import useCreateDom from "@/hooks/useDomCreate";
+import useDomCreate from "@/hooks/useDomCreate";
 type messageType = "success" | "error" | "default";
 export default {
   name: "MessageAlert",
@@ -25,8 +25,8 @@ export default {
     }
   },
   emits: ["onHide"],
-  setup(props, context) {
-    useCreateDom("error-alert");
+  setup(props) {
+    useDomCreate("error-alert");
     const isVisible = ref(true);
     const classObj = {
       "alert-success": props.type === "success",

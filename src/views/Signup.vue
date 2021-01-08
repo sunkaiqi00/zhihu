@@ -111,7 +111,7 @@ export default {
             createMessage("注册成功，正在前往登录页", "success");
             setTimeout(() => {
               router.push("/login");
-            }, 1600);
+            }, 2100);
           })
           .catch(err => {
             console.log(err);

@@ -8,9 +8,8 @@
 </template>
 
 <script lang="ts">
-import { computed, onMounted, watch } from "vue";
+import { computed, watch } from "vue";
 import { useStore } from "vuex";
-import axios from "axios";
 import createMessage from "./components/createMessage";
 import { StoreData } from "./typeings/interface";
 import Header from "./components/Header.vue";
@@ -23,9 +22,7 @@ export default {
     const store = useStore<StoreData>();
     const userData = computed(() => store.state.user);
     const isLoading = computed(() => store.state.loading);
-    const token = computed(() => store.state.token);
     const error = computed(() => store.state.error);
-
     watch(
       () => error.value.status,
       () => {
@@ -35,12 +32,6 @@ export default {
         }
       }
     );
-    onMounted(() => {
-      if (!userData.value.isLogin && token.value) {
-        axios.defaults.headers.common.Authorization = `Bearer ${token.value}`;
-        store.dispatch("getCurrentUser");
-      }
-    });
     return {
       userData,
       isLoading,

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import useCreateDom from "@/hooks/useDomCreate";
+import useDomCreate from "@/hooks/useDomCreate";
 export default {
   name: "Loading",
   props: {
@@ -27,7 +27,7 @@ export default {
     backgroundColor: String
   },
   setup() {
-    useCreateDom("loading");
+    useDomCreate("loading");
   }
 };
 </script>

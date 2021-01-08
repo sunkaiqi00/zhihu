@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import MessageAlert from "./MessageAlert.vue";
 type MessageType = "success" | "error" | "default";
 
-const createMessage = (message: string, type: MessageType, delay = 1000) => {
+const createMessage = (message: string, type: MessageType, delay = 2000) => {
   const messageInstance = createApp(MessageAlert, {
     message,
     type

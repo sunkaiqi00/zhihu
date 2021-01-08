@@ -1,6 +1,6 @@
 import { onUnmounted } from "vue";
 
-function useCreateDom(domId) {
+function useDomCreate(domId) {
   const node = document.createElement("div");
   node.id = domId;
   document.body.appendChild(node);
@@ -8,4 +8,4 @@ function useCreateDom(domId) {
     document.body.removeChild(node);
   });
 }
-export default useCreateDom;
+export default useDomCreate;

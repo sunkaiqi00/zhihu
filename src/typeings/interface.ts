@@ -1,4 +1,4 @@
-export interface ColumnmProps {
+export interface ColumnProps {
   _id: string;
   title: string;
   avatar?: ImageProps;
@@ -9,14 +9,18 @@ export interface ImageProps {
   _id?: string;
   url?: string;
   createAt?: string;
+  filename?: string;
+  extname?: string;
 }
 
 export interface UserProps {
   isLogin: boolean;
   nickName?: string;
-  _id?: number;
+  _id?: string;
   column?: string;
   email?: string;
+  avatar?: ImageProps;
+  description?: string;
 }
 
 export interface RuleProp {
@@ -26,19 +30,20 @@ export interface RuleProp {
 }
 
 export interface PostProps {
-  _id: string;
+  _id?: string;
   title: string;
   excerpt?: string;
   content?: string;
-  image?: ImageProps;
-  createdAt: string;
+  image?: ImageProps | string;
+  createdAt?: string;
   column: string;
+  author?: string | UserProps;
 }
 
 export interface StoreData {
   token: string;
   loading: boolean;
-  columns: ColumnmProps[];
+  columns: ColumnProps[];
   posts: PostProps[];
   user: UserProps;
   error: ErrorProps;
@@ -47,4 +52,15 @@ export interface StoreData {
 export interface ErrorProps {
   status: boolean;
   message?: string;
+}
+
+export interface ResponseType<T> {
+  code: number;
+  msg: string;
+  data: T;
+}
+
+export interface CheckCondition {
+  format?: string[];
+  size?: number;
 }

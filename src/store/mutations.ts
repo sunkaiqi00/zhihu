@@ -6,7 +6,9 @@ import {
   SET_COLUMN,
   SET_POSTS,
   SET_LOADING,
-  SET_ERROR
+  SET_ERROR,
+  UPDATEPOST,
+  DELETEPOST
 } from "./constant";
 import { ErrorProps } from "@/typeings/interface";
 export default {
@@ -14,10 +16,14 @@ export default {
     state.token = data.data.token;
   },
   [CURRENT_USER](state, data) {
-    state.user = { isLogin: true, ...data.data };
+    state.user = {
+      isLogin: true,
+      ...data.data,
+      description: "我就是我，是颜色不一样的烟火。"
+    };
   },
   [CREATEPOST](state, post) {
-    state.posts.push(post);
+    state.posts.push(post.data);
   },
   [SET_COLUMNS](state, columns) {
     state.columns = columns.data.list;
@@ -33,5 +39,17 @@ export default {
   },
   [SET_ERROR](state, error: ErrorProps) {
     state.error = error;
+  },
+  [UPDATEPOST](state, data) {
+    state.posts = state.posts.map(post => {
+      if (post._id === data.data._id) {
+        return data.data;
+      } else {
+        return post;
+      }
+    });
+  },
+  [DELETEPOST](state, { data }) {
+    state.posts = state.posts.filter(post => post._id !== data._id);
   }
 };

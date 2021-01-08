@@ -6,13 +6,15 @@ import {
   SET_POSTS,
   SET_LOADING,
   CURRENT_USER,
-  SET_ERROR
+  SET_ERROR,
+  UPDATEPOST,
+  DELETEPOST
 } from "./constant";
 import store from "./index";
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { Commit } from "vuex";
 import { ErrorProps } from "@/typeings/interface";
-const OK = 0;
+export const OK = 0;
 axios.interceptors.request.use(config => {
   store.commit(SET_LOADING, true);
   store.dispatch("setError", { status: false, message: "" });
@@ -54,6 +56,18 @@ async function postDataCommit(
   }
   return data;
 }
+async function asyncAndCommit(
+  url: string,
+  mutationsName: string,
+  commit,
+  config: AxiosRequestConfig = { method: "get" }
+) {
+  const { data } = await axios(url, config);
+  if (data.code === OK) {
+    commit(mutationsName, data);
+  }
+  return data;
+}
 export default {
   login({ commit }, payload) {
     const data = postDataCommit("/test/user/login", LOGIN, commit, payload);
@@ -78,7 +92,7 @@ export default {
     });
   },
   createPost({ commit }, post) {
-    commit(CREATEPOST, post);
+    return postDataCommit("/test/posts", CREATEPOST, commit, post);
   },
   setColumns({ commit }) {
     getDataCommit("/test/columns", SET_COLUMNS, commit);
@@ -94,5 +108,16 @@ export default {
   },
   setError({ commit }, error: ErrorProps) {
     commit(SET_ERROR, error);
+  },
+  updatePost({ commit }, { id, payload }) {
+    return asyncAndCommit(`/test/posts/${id}`, UPDATEPOST, commit, {
+      method: "patch",
+      data: payload
+    });
+  },
+  deletePost({ commit }, id) {
+    return asyncAndCommit(`/test/posts/${id}`, DELETEPOST, commit, {
+      method: "delete"
+    });
   }
 };

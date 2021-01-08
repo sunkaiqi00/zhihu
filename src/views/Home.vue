@@ -6,9 +6,9 @@
           <img src="../assets/image/callout.svg" alt="callout" class="w-50" />
           <h2 class="font-weight-light">随心写作，自由表达</h2>
           <p>
-            <router-link to="/createpost" class="btn btn-primary my-2"
-              >开始写文章</router-link
-            >
+            <router-link to="/createpost" class="btn btn-primary my-2">
+              开始写文章
+            </router-link>
           </p>
         </div>
       </div>
@@ -41,9 +41,7 @@ export default {
   },
   setup() {
     const store = useStore<StoreData>();
-
     const columns = computed(() => store.state.columns);
-
     onMounted(() => {
       store.dispatch("setColumns");
     });

@@ -68,7 +68,7 @@ export default {
             createMessage("登陆成功，正在前往首页", "success");
             setTimeout(() => {
               router.push("/");
-            }, 1600);
+            }, 2100);
             emailVal.value = "";
             passwordVal.value = "";
           })

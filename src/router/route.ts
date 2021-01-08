@@ -33,5 +33,10 @@ export default [
     meta: {
       requiredLogin: true
     }
+  },
+  {
+    path: "/posts/:id",
+    name: "posts",
+    component: () => import("@/views/PostDetail.vue")
   }
 ];

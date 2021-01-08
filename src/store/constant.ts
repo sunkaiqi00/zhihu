@@ -6,3 +6,5 @@ export const SET_COLUMN = "setColumn"; // 详情页作者
 export const SET_POSTS = "setPosts"; // 详情页文章列表
 export const SET_LOADING = "setLoading"; // loading
 export const SET_ERROR = "setError"; // 错误
+export const UPDATEPOST = "updatePost"; // 更新
+export const DELETEPOST = "deletePost"; // 删除

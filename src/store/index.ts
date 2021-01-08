@@ -4,13 +4,19 @@ import mutations from "./mutations";
 import actions from "./actions";
 import { StoreData } from "../typeings/interface";
 
+function getLocalUser() {
+  const data = localStorage.getItem("user");
+  if (data) {
+    return JSON.parse(data);
+  }
+}
 const store = createStore<StoreData>({
   state: {
     token: localStorage.getItem("token") || "",
     loading: false,
     columns: [],
     posts: [],
-    user: { isLogin: false },
+    user: getLocalUser() || { isLogin: false },
     error: {
       status: false
     }
