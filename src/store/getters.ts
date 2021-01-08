@@ -1,8 +1,17 @@
+import { objToArr } from "@/hooks/helper";
+
 export default {
-  getColumns(state) {
-    return (id: string) => state.columns.find(item => item._id === id);
+  getColumnsById(state) {
+    return (id: string) => state.columns.data[id];
   },
-  getPosts(state) {
-    return (cid: string) => state.posts.filter(item => item.column === cid);
+  getPostsByCid(state) {
+    return (cid: string) => {
+      return objToArr(state.posts.data).filter(
+        post => (post as any).column === cid
+      );
+    };
+  },
+  getColumns(state) {
+    return objToArr(state.columns.data);
   }
 };

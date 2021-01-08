@@ -16,7 +16,11 @@
     <h4 class="font-weight-bold text-center">发现精彩</h4>
     <column-list :list="columns"></column-list>
     <div class="loading-more text-center">
-      <button class="btn btn-primary mt-2 mb-5 mx-auto btn-block w-25">
+      <button
+        class="btn btn-primary mt-2 mb-5 mx-auto btn-block w-25"
+        @click="loadMorePage"
+        v-if="!isLastPage"
+      >
         加载更多
       </button>
     </div>
@@ -28,6 +32,7 @@ import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { StoreData } from "@/typeings/interface";
 import ColumnList from "../components/column/ColumnList.vue";
+import useLoadMore from "../hooks/useLoadMore";
 
 interface A {
   code: number;
@@ -41,15 +46,29 @@ export default {
   },
   setup() {
     const store = useStore<StoreData>();
-    const columns = computed(() => store.state.columns);
+    const total = computed(() => store.state.columns.total);
+    const currentPage = computed(() => store.state.columns.currentPage);
+    const { loadMorePage, isLastPage } = useLoadMore("setColumns", total, {
+      currentPage: currentPage.value ? currentPage.value + 1 : 2,
+      pageSize: 3
+    });
+
+    const columns = computed(() => store.getters.getColumns);
+
     onMounted(() => {
-      store.dispatch("setColumns");
+      store.dispatch("setColumns", { pageSize: 3 });
     });
     return {
-      columns
+      columns,
+      loadMorePage,
+      isLastPage
     };
   }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.home {
+  padding: 0 6rem;
+}
+</style>

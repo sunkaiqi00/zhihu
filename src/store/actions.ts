@@ -60,11 +60,16 @@ async function asyncAndCommit(
   url: string,
   mutationsName: string,
   commit,
-  config: AxiosRequestConfig = { method: "get" }
+  config: AxiosRequestConfig = { method: "get" },
+  extrData?: any
 ) {
   const { data } = await axios(url, config);
   if (data.code === OK) {
-    commit(mutationsName, data);
+    if (extrData) {
+      commit(mutationsName, { data, extrData });
+    } else {
+      commit(mutationsName, data);
+    }
   }
   return data;
 }
@@ -94,14 +99,32 @@ export default {
   createPost({ commit }, post) {
     return postDataCommit("/test/posts", CREATEPOST, commit, post);
   },
-  setColumns({ commit }) {
-    getDataCommit("/test/columns", SET_COLUMNS, commit);
+  setColumns({ state, commit }, params) {
+    const { currentPage = 1, pageSize = 6 } = params;
+
+    if (state.columns.currentPage < currentPage) {
+      getDataCommit(
+        `/test/columns?currentPage=${currentPage}&pageSize=${pageSize}`,
+        SET_COLUMNS,
+        commit
+      );
+    }
   },
-  setColumn({ commit }, cid) {
-    getDataCommit(`/test/columns/${cid}`, SET_COLUMN, commit);
+  setColumn({ state, commit }, cid) {
+    if (!state.columns.data[cid]) {
+      getDataCommit(`/test/columns/${cid}`, SET_COLUMN, commit);
+    }
   },
-  setPosts({ commit }, cid) {
-    getDataCommit(`/test/columns/${cid}/posts`, SET_POSTS, commit);
+  setPosts({ state, commit }, cid) {
+    if (!state.posts.loadedColumns.includes(cid)) {
+      asyncAndCommit(
+        `/test/columns/${cid}/posts`,
+        SET_POSTS,
+        commit,
+        { method: "get" },
+        cid
+      );
+    }
   },
   setLoading({ commit }, status) {
     commit(SET_LOADING, status);

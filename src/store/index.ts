@@ -14,8 +14,8 @@ const store = createStore<StoreData>({
   state: {
     token: localStorage.getItem("token") || "",
     loading: false,
-    columns: [],
-    posts: [],
+    columns: { data: {}, currentPage: 0, total: 0 },
+    posts: { data: {}, loadedColumns: [] },
     user: getLocalUser() || { isLogin: false },
     error: {
       status: false

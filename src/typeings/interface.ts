@@ -40,11 +40,22 @@ export interface PostProps {
   author?: string | UserProps;
 }
 
+export interface ListProps<T> {
+  [id: string]: T;
+}
+
 export interface StoreData {
   token: string;
   loading: boolean;
-  columns: ColumnProps[];
-  posts: PostProps[];
+  columns: {
+    data: ListProps<ColumnProps>;
+    currentPage: number;
+    total: number;
+  };
+  posts: {
+    data: ListProps<PostProps>;
+    loadedColumns: [];
+  };
   user: UserProps;
   error: ErrorProps;
 }
@@ -63,4 +74,9 @@ export interface ResponseType<T> {
 export interface CheckCondition {
   format?: string[];
   size?: number;
+}
+
+export interface LoadParams {
+  currentPage: number;
+  pageSize: number;
 }

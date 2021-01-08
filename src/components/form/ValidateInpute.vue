@@ -44,6 +44,8 @@ export default {
   inheritAttrs: false,
   emits: ["empty-input", "update:modleValue"],
   setup(props, ctx) {
+    console.log(props);
+
     const inputRef = reactive({
       val: props.modleValue || "",
       error: false,

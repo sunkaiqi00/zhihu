@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid">
     <Header :user="userData"></Header>
     <router-view></router-view>
     <Footer />
@@ -40,3 +40,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.container-fluid {
+  padding: 0;
+  overflow-x: hidden;
+}
+</style>

@@ -7,7 +7,6 @@
       <div class="col-3 text-center">
         <img
           :src="column.avatar && column.avatar.url"
-          :alt="column.title"
           class="rounded-circle border w-100"
         />
       </div>
@@ -36,13 +35,14 @@ export default {
     const currentId = route.params.id;
 
     const column = computed(() => {
-      const column = store.getters.getColumns(currentId);
+      const column = store.getters.getColumnsById(currentId);
       if (column) {
         generateUrl(column, 100, 100);
       }
       return column;
     });
-    const list = computed(() => store.getters.getPosts(currentId));
+    const list = computed(() => store.getters.getPostsByCid(currentId));
+
     onMounted(() => {
       store.dispatch("setColumn", currentId);
       store.dispatch("setPosts", currentId);

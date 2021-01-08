@@ -6,7 +6,7 @@
           <img
             :src="item.avatar && item.avatar.url"
             :alt="item.title"
-            class="rounded-circle border border-light my-3"
+            class="rounded-circle border border-light my-3 w-25"
           />
           <h5 class="card-title">{{ item.title }}</h5>
           <p class="card-text">{{ item.description }}</p>
@@ -37,8 +37,6 @@ export default {
       return props.list.map(item => {
         if (!item.avatar) {
           item.avatar = require("@/assets/image/avatar.png");
-        } else {
-          item.avatar.url += "?x-oss-process=image/resize,m_pad,h_50,w_50";
         }
         return item;
       });
